@@ -115,4 +115,20 @@ Schedule.forEach(function (thisHour) {
       class: "future",
     });
   }
+  // creates save button
+  var saveButton = $("<i class='fa fa-save'>Save</i>");
+  var savePlan = $("<button>").attr({});
+  savePlan.append(saveButton);
+  hourRow.append(hourField, hourPlan, savePlan);
+
+  // saves data to be used in localStorage
+  savePlan.on("click", function (event) {
+    event.preventDefault();
+    var saveIndex = $(this).siblings(".description").children(".future");
+    saveSchedule();
+    displayLS();
+  });
 });
+
+// loads any existing localstorage data after components created
+init();
