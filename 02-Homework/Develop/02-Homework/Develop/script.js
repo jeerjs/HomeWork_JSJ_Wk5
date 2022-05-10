@@ -79,3 +79,40 @@ function init() {
   saveSchedule();
   displayLS();
 }
+
+//schedule body
+
+Schedule.forEach(function (thisHour) {
+  // creates timeblocks row
+  var hourRow = $("<form>").attr({
+    class: "row",
+  });
+  $(".container").append(hourRow);
+
+  // creates time field
+  var hourField = $("<div>").text(`${thisHour.hour}`).attr({
+    class: "col-md-2 hour",
+  });
+
+  // creates schdeduler data
+  var hourPlan = $("<div>").attr({
+    class: "col-md-9 description p-0",
+  });
+  var planData = $("<textarea>");
+  planData.attr("class", "customtextarea");
+  hourPlan.append(planData);
+  planData.attr("id", thisHour.id);
+  if (thisHour.time < moment().format("HH")) {
+    planData.attr({
+      class: "past",
+    });
+  } else if (thisHour.time === moment().format("HH")) {
+    planData.attr({
+      class: "present",
+    });
+  } else if (thisHour.time > moment().format("HH")) {
+    planData.attr({
+      class: "future",
+    });
+  }
+});
