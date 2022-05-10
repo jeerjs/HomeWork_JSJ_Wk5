@@ -1,57 +1,81 @@
-console.log("Hello");
-
 //Sets current date
 function HeaderDate() {
   var currentDate = moment().format("dddd Do MMM YYYY");
   $("#currentDay").text(currentDate);
 }
-HeaderDate();
+
+//Refreshes date every second
+setInterval(HeaderDate, 1000);
 
 //Object to store data
 var Schedule = [
   {
-    id: "0",
-    hour: "09:00",
-    time: "09:00",
+    hour: "9am",
+    time: "09",
+    reminder: "",
   },
   {
-    id: "1",
-    hour: "10:00",
-    time: "10:00",
+    hour: "10am",
+    time: "10",
+    reminder: "",
   },
   {
-    id: "2",
-    hour: "11:00",
-    time: "11:00",
+    hour: "11am",
+    time: "11",
+    reminder: "",
   },
   {
-    id: "3",
-    hour: "12:00",
-    time: "12:00",
+    hour: "12am",
+    time: "12",
+    reminder: "",
   },
   {
-    id: "4",
-    hour: "01:00",
-    time: "13:00",
+    hour: "1pm",
+    time: "13",
+    reminder: "",
   },
   {
-    id: "5",
-    hour: "02:00",
-    time: "14:00",
+    hour: "2pm",
+    time: "14",
+    reminder: "",
   },
   {
-    id: "6",
-    hour: "03:00",
-    time: "15:00",
+    hour: "3pm",
+    time: "15",
+    reminder: "",
   },
   {
-    id: "7",
-    hour: "04:00",
-    time: "16:00",
+    hour: "4pm",
+    time: "16",
+    reminder: "",
   },
   {
-    id: "8",
-    hour: "05:00",
-    time: "17:00",
+    hour: "5pm",
+    time: "17",
+    reminder: "",
   },
 ];
+
+// saves data to localStorage
+function saveSchedule() {
+  localStorage.setItem("Schedule", JSON.stringify(Schedule));
+}
+
+// sets any data in localStorage to the view
+function displayLS() {
+  Schedule.forEach(function (_thisHour) {
+    $(`#${_thisHour.id}`).val(_thisHour.reminder);
+  });
+}
+
+// sets any existing localStorage data to the view if it exists
+function init() {
+  var StoredDate = JSON.parse(localStorage.getItem("Schedule"));
+
+  if (StoredDate) {
+    Schedule = StoredDate;
+  }
+
+  saveSchedule();
+  displayLS();
+}
